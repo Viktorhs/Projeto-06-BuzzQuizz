@@ -27,6 +27,7 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
                             </ul>`
 
 let quizzId;
+let questionsQuizz;
 
 function T2_selectedQuizzeRender(id){
     quizzId = id;
@@ -58,7 +59,7 @@ function T2_baseHTML(id){
 function T2_renderQuizzSelected(id){
     let cont = 0;
     let answersQuizz;
-    let questionsQuizz = id.questions;
+    questionsQuizz = id.questions;
     for(let i = 0; i < questionsQuizz.length; i++){
         document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}">
                                                                     <div style="background: ${questionsQuizz[i].color};">${questionsQuizz[i].title}</div>
@@ -68,14 +69,27 @@ function T2_renderQuizzSelected(id){
         answersQuizz = questionsQuizz[i].answers;
         answersQuizz.sort(comparador);
         for(let i = 0; i < answersQuizz.length; i++){
-            document.querySelector(`.p${cont.toString()} ul`).innerHTML +=`<li>
+            document.querySelector(`.p${cont.toString()} ul`).innerHTML +=`<li onClick ="T2_selectAnswers(this)">
                                                                  <img src="${answersQuizz[i].image}" alt="">
                                                                 <p>${answersQuizz[i].text}</p>
                                                             </li>`
         }
         cont++
     }
+    document.querySelector("header").scrollIntoView()
 }
+
+function T2_selectAnswers(elemento){
+    let teste = elemento.querySelector("p").innerHTML;
+    let num = elemento.parentNode.parentNode.classList;
+    num = num[1].replace("p", '');
+    let correta = questionsQuizz[num].answers.filter((essa) => essa.isCorrectAnswer === true)
+
+    if(correta[0].text === teste){
+        elemento.querySelector("p").parentNode.classList.add("correct")
+    }
+    
+}   
 
 function comparador() { 
 	return Math.random() - 0.5; 
