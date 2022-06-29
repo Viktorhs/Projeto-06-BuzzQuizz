@@ -30,7 +30,7 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 100%;
+    width: 73%;
 }
 .T1-user{
     width: 100%;
@@ -220,10 +220,12 @@ main{
     margin-bottom: 9px;
 }
 .T2-question-box p{
+    width: 332px;
     font-weight: 700;
     font-size: 20px;
     line-height: 23px;
     color: #000000;
+    word-break: break-all;
 }
 
 

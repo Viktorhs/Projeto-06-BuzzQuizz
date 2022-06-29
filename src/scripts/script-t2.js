@@ -26,8 +26,10 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
                             </li>
                             </ul>`
 
+let quizzId;
+
 function T2_selectedQuizzeRender(id){
-    let quizzId = id;
+    quizzId = id;
     console.log(quizzId);
     let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
     promisse.catch(T2_selectErro);
@@ -55,20 +57,25 @@ function T2_baseHTML(id){
 }
 
 function T2_renderQuizzSelected(id){
-    let answersQuizz;
     let cont = 0;
-    let questions = id.questions;
-    for(let i = 0; i < questions.length; i++){
-        document.querySelector(".T2-questions").innerHTML += `<div style="background: ${questions[i].color};">${questions[i].title}</div>
-                                                                <ul class="${cont}">
-                                                                </ul>`
-        answersQuizz = questions[i].answers;
+    let answersQuizz;
+    let questionsQuizz = id.questions;
+    for(let i = 0; i < questionsQuizz.length; i++){
+        document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}">
+                                                                    <div style="background: ${questionsQuizz[i].color};">${questionsQuizz[i].title}</div>
+                                                                    <ul>
+                                                                    </ul>
+                                                                </li>`
+        answersQuizz = questionsQuizz[i].answers;
         for(let i = 0; i < answersQuizz.length; i++){
-            document.querySelector(`.T2-questions ${cont.toString()}`).innerHTML +=`<li>
-                                                                        <img src="${answersQuizz[i].image}" alt="">
-                                                                        <p>${answersQuizz[i].text}</p>
-                                                                    </li>`
+            document.querySelector(`.p${cont.toString()} ul`).innerHTML +=`<li>
+                                                                 <img src="${answersQuizz[i].image}" alt="">
+                                                                <p>${answersQuizz[i].text}</p>
+                                                            </li>`
         }
         cont++
     }
+
+
+    
 }
