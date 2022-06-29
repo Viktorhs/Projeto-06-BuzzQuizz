@@ -30,7 +30,7 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 1050px;
+    width: 100%;
 }
 .T1-user{
     width: 100%;
@@ -102,7 +102,7 @@ main{
     font-size: 20px;
     line-height: 23px;
 }
-img{
+.T1-all-quizzes img, .T1-user-quizzes img{
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -143,4 +143,101 @@ img{
     line-height: 22px;
     color: #FFFFFF;
     margin: 0 0 7px 18px;
+}
+
+/* tela2 */
+
+.T2-img-quizz{
+    position: relative;
+    width: 100%;
+    height: 227px;
+}
+.T2-img-quizz img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.T2-img-quizz div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.T2-img-quizz h3{
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    word-break: break-all;
+
+    color: #FFFFFF;
+}
+.T2-question-box{
+    margin: 42px 0;
+    width: 759px;
+    padding: 27px 35px 35px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.T2-question-box div{
+    width: 100%;
+    min-height: 138px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;
+    word-break: break-all;
+    background-color: #FFFFFF;
+}
+
+.T2-question-box ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;    
+}
+
+.T2-question-box li{
+    margin: 18px 0;
+}
+
+.T2-question-box img{
+    width: 332px;
+    margin-bottom: 9px;
+}
+.T2-question-box p{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+
+
+@media (max-width: 1100px){
+    main{
+        justify-content: center;
+        width: 100%;
+    }
+
+    .T1-all-quizzes ul, .T1-user-quizzes ul{
+        justify-content: space-evenly;
+    }
+
+    .T1-all-quizzes li, .T1-user-quizzes li{
+        margin: 0 7px
+    }
 }

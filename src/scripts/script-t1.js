@@ -53,7 +53,7 @@ function T1_HTMLBase() {
                                                 </div>`
 }
 
-function T1_renderUserSucces() {
+function T1_renderUserSuccess() {
     document.querySelector(".T1-user").innerHTML = `<div class="T1-user-quizzes-empty">
                                                                 <p>Você não criou nenhum quizz ainda :(</p>
                                                                  <div>Criar Quizz</div>
@@ -66,18 +66,18 @@ function T1_renderUserSucces() {
 function T1_renderAllQuizzes() {
     let promisse = axios.get(`${urlAPI}/quizzes`)
     promisse.catch(T1_renderAllError = () => alert('Erro em obter os Quizzes volte mais tarde!'));
-    promisse.then(T1_renderAllSucces)
+    promisse.then(T1_renderAllSuccess)
 }
 
-function T1_renderAllSucces(succes) {
-    quizzesAllUsers = succes.data
+function T1_renderAllSuccess(success) {
+    quizzesAllUsers = success.data
     for(let i = 0; i < quizzesAllUsers.length; i++){
-        document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li>
-                                                                        <img src="${quizzesAllUsers[i].image}" alt="">
+        document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li onClick ="T2_selectedQuizzeRender(${quizzesAllUsers[i].id})">
+                                                                        <img src="${quizzesAllUsers[i].image}">
                                                                         <div><h3>${quizzesAllUsers[i].title}</h3></div>
                                                                     </li>`
     }
 }
 T1_HTMLBase()
-T1_renderUserSucces()
+T1_renderUserSuccess()
 T1_renderAllQuizzes()
