@@ -26,13 +26,15 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
                             </li>
                             </ul>`
 
+let quizzId;
+let questionsQuizz;
+
 function T2_selectedQuizzeRender(id){
-    let quizzId = id;
+    quizzId = id;
     console.log(quizzId);
     let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
     promisse.catch(T2_selectErro);
     promisse.then(T2_selectSuccess);
-   //T2_baseHTML(select)
 } 
 
 function T2_selectErro(erro){
@@ -55,20 +57,40 @@ function T2_baseHTML(id){
 }
 
 function T2_renderQuizzSelected(id){
-    let answersQuizz;
     let cont = 0;
-    let questions = id.questions;
-    for(let i = 0; i < questions.length; i++){
-        document.querySelector(".T2-questions").innerHTML += `<div style="background: ${questions[i].color};">${questions[i].title}</div>
-                                                                <ul class="${cont}">
-                                                                </ul>`
-        answersQuizz = questions[i].answers;
+    let answersQuizz;
+    questionsQuizz = id.questions;
+    for(let i = 0; i < questionsQuizz.length; i++){
+        document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}">
+                                                                    <div style="background: ${questionsQuizz[i].color};">${questionsQuizz[i].title}</div>
+                                                                    <ul>
+                                                                    </ul>
+                                                                </li>`
+        answersQuizz = questionsQuizz[i].answers;
+        answersQuizz.sort(comparador);
         for(let i = 0; i < answersQuizz.length; i++){
-            document.querySelector(`.T2-questions ${cont.toString()}`).innerHTML +=`<li>
-                                                                        <img src="${answersQuizz[i].image}" alt="">
-                                                                        <p>${answersQuizz[i].text}</p>
-                                                                    </li>`
+            document.querySelector(`.p${cont.toString()} ul`).innerHTML +=`<li onClick ="T2_selectAnswers(this)">
+                                                                 <img src="${answersQuizz[i].image}" alt="">
+                                                                <p>${answersQuizz[i].text}</p>
+                                                            </li>`
         }
         cont++
     }
+    document.querySelector("header").scrollIntoView()
+}
+
+function T2_selectAnswers(elemento){
+    let teste = elemento.querySelector("p").innerHTML;
+    let num = elemento.parentNode.parentNode.classList;
+    num = num[1].replace("p", '');
+    let correta = questionsQuizz[num].answers.filter((essa) => essa.isCorrectAnswer === true)
+
+    if(correta[0].text === teste){
+        elemento.querySelector("p").parentNode.classList.add("correct")
+    }
+    
+}   
+
+function comparador() { 
+	return Math.random() - 0.5; 
 }
