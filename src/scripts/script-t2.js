@@ -34,7 +34,6 @@ function T2_selectedQuizzeRender(id){
     let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
     promisse.catch(T2_selectErro);
     promisse.then(T2_selectSuccess);
-   //T2_baseHTML(select)
 } 
 
 function T2_selectErro(erro){
@@ -67,6 +66,7 @@ function T2_renderQuizzSelected(id){
                                                                     </ul>
                                                                 </li>`
         answersQuizz = questionsQuizz[i].answers;
+        answersQuizz.sort(comparador);
         for(let i = 0; i < answersQuizz.length; i++){
             document.querySelector(`.p${cont.toString()} ul`).innerHTML +=`<li>
                                                                  <img src="${answersQuizz[i].image}" alt="">
@@ -75,7 +75,8 @@ function T2_renderQuizzSelected(id){
         }
         cont++
     }
+}
 
-
-    
+function comparador() { 
+	return Math.random() - 0.5; 
 }

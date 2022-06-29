@@ -236,6 +236,7 @@ main {
 }
 
 .T2-question-box li {
+    height: 367px;
     margin: 18px 0;
 }
 
@@ -245,6 +246,7 @@ main {
 }
 
 .T2-question-box p {
+    width: 332px;
     font-weight: 700;
     font-size: 20px;
     line-height: 23px;
