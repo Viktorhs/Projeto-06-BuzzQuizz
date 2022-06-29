@@ -1,5 +1,5 @@
-const urlAPI = 'https://mock-api.driven.com.br/api/v4/buzzquizz'
-
+const urlAPI = 'https://mock-api.driven.com.br/api/v6/buzzquizz'
+let quizzesAllUsers;
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
                                     <div>Criar Quizz</div>
@@ -70,9 +70,9 @@ function T1_renderAllQuizzes() {
 }
 
 function T1_renderAllSucces(succes) {
-    let quizzesAllUsers = succes.data
-    for(let i = 5; i < quizzesAllUsers.length; i++){
-        document.querySelector(".T1-all-quizzes ul").innerHTML =   `<li>
+    quizzesAllUsers = succes.data
+    for(let i = 0; i < quizzesAllUsers.length; i++){
+        document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li>
                                                                         <img src="${quizzesAllUsers[i].image}" alt="">
                                                                         <div><h3>${quizzesAllUsers[i].title}</h3></div>
                                                                     </li>`
