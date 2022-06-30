@@ -16,7 +16,7 @@
 
 .T3-b {
     margin: 10px 0px;
-    padding: 0px 15px;
+    padding: 15px 15px;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
@@ -87,7 +87,7 @@
     background-color: #EC362D;
     border-radius: 15px;
 
-    margin-top: 20px;
+    margin: 20px 0px;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -105,8 +105,6 @@
     max-width: 400px;
 
     border-radius: 15px;
-
-    margin-top: 20px;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -161,8 +159,8 @@
     display: flex;
 }
 
-@media (max-width: 1100px) {
+@media (min-width: 1100px) {
     .T3-box {
-        width: 100vw;
+        max-width: 600px;
     }
 }
