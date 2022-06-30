@@ -1,4 +1,4 @@
-const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
+const urlAPI = 'https://mock-api.driven.com.br/api/v4/buzzquizz'
 let quizzesAllUsers;
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
@@ -43,14 +43,16 @@ let T1templateAllrQuizzes = `<div class="T1-all-quizzes">
 
 
 function T1_HTMLBase() {
-    document.querySelector("main").innerHTML = `<div class="T1-user">
-                                                </div>
-                                                </div>
-                                                <div class="T1-all-quizzes">
-                                                    <h2>Todos os Quizzes</h2>
-                                                    <ul>
-                                                    </ul>
-                                                </div>`
+    document.querySelector("main").classList.add("t1")
+    document.querySelector("main").innerHTML = `   
+                                                    <div class="T1-user">
+                                                    </div>
+                                                    </>
+                                                    <div class="T1-all-quizzes">
+                                                        <h2>Todos os Quizzes</h2>
+                                                        <ul>
+                                                        </ul>
+                                                    </div>`
 }
 
 function T1_renderUserSuccess() {
