@@ -1,4 +1,4 @@
-const urlAPI = 'https://mock-api.driven.com.br/api/v4/buzzquizz'
+const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
 let quizzesAllUsers;
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
