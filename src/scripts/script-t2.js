@@ -48,6 +48,7 @@ function T2_selectErro(erro){
 }
 
 function T2_selectSuccess(success){
+    document.querySelector("main").classList.remove("t1")
     T2_baseHTML(success.data);
     T2_renderQuizzSelected(success.data);
 }
