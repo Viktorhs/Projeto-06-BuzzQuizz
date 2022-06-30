@@ -30,11 +30,13 @@ let quizzId;
 let questionsQuizz;
 
 function T2_selectedQuizzeRender(id){
-    quizzId = id;
-    console.log(quizzId);
-    let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
-    promisse.catch(T2_selectErro);
-    promisse.then(T2_selectSuccess);
+    if(quizzId == undefined){
+        quizzId = id;
+        let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
+        promisse.catch(T2_selectErro);
+        promisse.then(T2_selectSuccess);
+    }
+
 } 
 
 function T2_selectErro(erro){
@@ -80,14 +82,36 @@ function T2_renderQuizzSelected(id){
 }
 
 function T2_selectAnswers(elemento){
-    let teste = elemento.querySelector("p").innerHTML;
-    let num = elemento.parentNode.parentNode.classList;
-    num = num[1].replace("p", '');
-    let correta = questionsQuizz[num].answers.filter((essa) => essa.isCorrectAnswer === true)
-
-    if(correta[0].text === teste){
-        elemento.querySelector("p").parentNode.classList.add("correct")
+    let classSelected = elemento.className
+    if(classSelected == ""){
+        let teste = elemento.querySelector("p").innerHTML;
+        let num = elemento.parentNode.parentNode.classList;
+        num = num[1].replace("p", '');
+        let all = elemento.parentNode.querySelectorAll("li")
+        let correta = questionsQuizz[num].answers.filter((essa) => essa.isCorrectAnswer === true)
+    
+        if(correta[0].text == teste){
+            elemento.querySelector("p").parentNode.classList.add("correct")
+            for(let i = 0; i < all.length; i++){
+                if(all[i].className != "correct"){
+                    all[i].classList.add("erro")
+                }
+            }
+            return
+        }else{
+            elemento.querySelector("p").parentNode.classList.add("errada")
+            for(let i = 0; i < all.length; i++){
+                if(all[i].className != "errada"){
+                    all[i].classList.add("erro")
+                }
+            }
+        }
+    }else{
+        alert("deu")
     }
+
+
+
     
 }   
 

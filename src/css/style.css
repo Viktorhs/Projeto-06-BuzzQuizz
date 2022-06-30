@@ -270,6 +270,12 @@ main {
 .correct p {
     color: forestgreen;
 }
+.erro {
+    filter: opacity(30%);
+}
+.errada p {
+    color: red;
+}
 
 @media (max-width: 1100px) {
     main {
