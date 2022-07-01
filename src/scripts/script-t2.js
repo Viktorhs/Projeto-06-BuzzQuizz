@@ -125,8 +125,8 @@ function T2_selectAnswers(elemento){
             }
             incorrect++
         }
-        num++
-        if(num < allAnswer.length - 1){
+        if(num < questionsQuizz.length - 1){
+            num++
             setTimeout(() => document.getElementById(num).scrollIntoView(), 2000)
         }
     }
