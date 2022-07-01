@@ -8,7 +8,7 @@ let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
 let T1templateUserQuizzes =`<div class="T1-user-quizzes">
                             <span>
                                 <h2>Seus Quizzes</h2>
-                                    ion-icon name="add-circle"></ion-icon>
+                                    <ion-icon name="add-circle" onClick = "T3_baseHTML()"></ion-icon>
                             </span>
 
                             <ul>
@@ -58,7 +58,7 @@ function T1_HTMLBase() {
 function T1_renderUserSuccess() {
     document.querySelector(".T1-user").innerHTML = `<div class="T1-user-quizzes-empty">
                                                                 <p>Você não criou nenhum quizz ainda :(</p>
-                                                                 <div onClick = "btnCreateQuizz(this)">Criar Quizz</div>
+                                                                 <div onClick = "T3_baseHTML()">Criar Quizz</div>
                                                             </div>`
 }
 
@@ -77,6 +77,20 @@ function T1_renderAllSuccess(success) {
                                                                         <div><h3>${quizzesAllUsers[i].title}</h3></div>
                                                                     </li>`
     }
+}
+
+function T3_baseHTML(){
+    document.querySelector("main").innerHTML = `
+    <div class="T3-header">Comece pelo começo</div>
+    <div class="T3-box">
+        <div class="T3-b">
+            <input type="text" placeholder="Título do seu quizz">
+            <input type="text" placeholder="URL da imagem do seu quizz">
+            <input type="text" placeholder="Quantidade de perguntas do quizz">
+            <input type="text" placeholder="Quantidade de níveis do quizz">
+        </div>
+    </div>
+    <div class="T3-btn" onclick="btnCreateQuizz(this)">Prosseguir pra criar perguntas</div>`
 }
 
 function T1_backHome(){

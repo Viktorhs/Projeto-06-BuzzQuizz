@@ -214,7 +214,7 @@ body .t1 {
     font-weight: 400;
     font-size: 39px;
     line-height: 46px;
-    word-break: break-all;
+    word-break: keep-all;
 
     color: #FFFFFF;
 }
@@ -236,12 +236,13 @@ body .t1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
 
     font-weight: 700;
     font-size: 23px;
     line-height: 27px;
     color: #FFFFFF;
-    word-break: break-all;
+    word-break: keep-all;
     background-color: #FFFFFF;
 }
 

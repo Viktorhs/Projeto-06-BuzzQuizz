@@ -94,7 +94,7 @@ function btnCreateQuizz(element) {
             newQuizz.nQ = box.childNodes[5].value
             newQuizz.nLv = box.childNodes[7].value
 
-            if ((newQuizz.title.length <= 20 && newQuizz.title.length <= 65) &&
+            if ((newQuizz.title.length >= 20 && newQuizz.title.length <= 65) &&
                 (newQuizz.imgURL.search('https://') != -1) &&
                 (newQuizz.nQ >= 3 && newQuizz.nLv >= 2)) {
                 let html1 = `

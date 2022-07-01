@@ -96,42 +96,50 @@ function T2_renderQuizzSelected(id){
     document.querySelector("header").scrollIntoView()
 }
 
+
+
 function T2_selectAnswers(elemento){
-    let classSelected = elemento.className;
+    let classSelected = elemento.parentNode.className;
     let num;
 
-    if(classSelected == ""){
+    if(classSelected !== "block"){
+        elemento.parentNode.classList.add("block")
         let selectedAnswer = elemento.querySelector("p").innerHTML;
         num = elemento.parentNode.parentNode.classList;
         num = num[1].replace("p", '');
         let allAnswer = elemento.parentNode.querySelectorAll("li")
         let correctAnswer = questionsQuizz[num].answers.filter((answerC) => answerC.isCorrectAnswer === true)
-    
-        if(correctAnswer[0].text == selectedAnswer){
-            elemento.querySelector("p").parentNode.classList.add("correct")
-            for(let i = 0; i < allAnswer.length; i++){
-                if(allAnswer[i].className != "correct"){
-                    allAnswer[i].classList.add("noSelect")
-                }
+        
+        for(let i = 0; i < allAnswer.length; i++){
+            if(allAnswer[i].outerText !== correctAnswer[0].text){
+                allAnswer[i].classList.add("incorrect")
+            }else{
+                allAnswer[i].classList.add("correct")
             }
+        }
 
+        for(let i = 0; i < allAnswer.length; i++){
+            if(allAnswer[i].outerText !== selectedAnswer){
+                allAnswer[i].classList.add("noSelect")
+            }
+        }
+
+        if(correctAnswer[0].text == selectedAnswer){
             correct++
         }else{
-            elemento.querySelector("p").parentNode.classList.add("incorrect")
-            for(let i = 0; i < allAnswer.length; i++){
-                if(allAnswer[i].className != "incorrect"){
-                    allAnswer[i].classList.add("noSelect")
-                }
-            }
             incorrect++
         }
+
         if(num < questionsQuizz.length - 1){
             num++
             setTimeout(() => document.getElementById(num).scrollIntoView(), 2000)
         }
+        T2_verify(questionsQuizz.length);
+    }else{
+        return
     }
-    T2_verify(questionsQuizz.length);
-}   
+}  
+   
 
 function T2_verify(teste){
     let confirm = correct + incorrect;
