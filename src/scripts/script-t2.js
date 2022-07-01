@@ -28,6 +28,8 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
 
 let quizzId;
 let questionsQuizz;
+let correct;
+let incorrect;
 
 function T2_selectedQuizzeRender(id){
     if(quizzId == undefined){
@@ -35,6 +37,8 @@ function T2_selectedQuizzeRender(id){
         let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
         promisse.catch(T2_selectErro);
         promisse.then(T2_selectSuccess);
+        correct = 0;
+        incorrect = 0;
     }
 
 } 
@@ -44,6 +48,7 @@ function T2_selectErro(erro){
 }
 
 function T2_selectSuccess(success){
+    document.querySelector("main").classList.remove("t1")
     T2_baseHTML(success.data);
     T2_renderQuizzSelected(success.data);
 }
@@ -63,7 +68,7 @@ function T2_renderQuizzSelected(id){
     let answersQuizz;
     questionsQuizz = id.questions;
     for(let i = 0; i < questionsQuizz.length; i++){
-        document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}">
+        document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}" id = "${cont}">
                                                                     <div style="background: ${questionsQuizz[i].color};">${questionsQuizz[i].title}</div>
                                                                     <ul>
                                                                     </ul>
@@ -82,37 +87,39 @@ function T2_renderQuizzSelected(id){
 }
 
 function T2_selectAnswers(elemento){
-    let classSelected = elemento.className
+    let classSelected = elemento.className;
+    let num;
+
     if(classSelected == ""){
-        let teste = elemento.querySelector("p").innerHTML;
-        let num = elemento.parentNode.parentNode.classList;
+        let selectedAnswer = elemento.querySelector("p").innerHTML;
+        num = elemento.parentNode.parentNode.classList;
         num = num[1].replace("p", '');
-        let all = elemento.parentNode.querySelectorAll("li")
-        let correta = questionsQuizz[num].answers.filter((essa) => essa.isCorrectAnswer === true)
+        let allAnswer = elemento.parentNode.querySelectorAll("li")
+        let correctAnswer = questionsQuizz[num].answers.filter((answerC) => answerC.isCorrectAnswer === true)
     
-        if(correta[0].text == teste){
+        if(correctAnswer[0].text == selectedAnswer){
             elemento.querySelector("p").parentNode.classList.add("correct")
-            for(let i = 0; i < all.length; i++){
-                if(all[i].className != "correct"){
-                    all[i].classList.add("erro")
+            for(let i = 0; i < allAnswer.length; i++){
+                if(allAnswer[i].className != "correct"){
+                    allAnswer[i].classList.add("noSelect")
                 }
             }
-            return
+
+            correct++
         }else{
-            elemento.querySelector("p").parentNode.classList.add("errada")
-            for(let i = 0; i < all.length; i++){
-                if(all[i].className != "errada"){
-                    all[i].classList.add("erro")
+            elemento.querySelector("p").parentNode.classList.add("incorrect")
+            for(let i = 0; i < allAnswer.length; i++){
+                if(allAnswer[i].className != "incorrect"){
+                    allAnswer[i].classList.add("noSelect")
                 }
             }
+            incorrect++
         }
-    }else{
-        alert("deu")
+        num++
+        if(num < allAnswer.length - 1){
+            setTimeout(() => document.getElementById(num).scrollIntoView(), 2000)
+        }
     }
-
-
-
-    
 }   
 
 function comparador() { 
