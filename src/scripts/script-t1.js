@@ -83,6 +83,7 @@ function T1_backHome(){
     T1_HTMLBase()
     T1_renderUserSuccess()
     T1_renderAllQuizzes()
+    cleanQuizzId()
 }
 T1_HTMLBase()
 T1_renderUserSuccess()

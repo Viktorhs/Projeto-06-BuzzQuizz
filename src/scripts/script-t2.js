@@ -25,12 +25,15 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
                                 </ul>
                             </li>
                             </ul>`
-
 let quizzId;
 let questionsQuizz;
 let quizzLevels;
 let correct;
 let incorrect;
+
+function cleanQuizzId(){
+    quizzId = undefined;
+}
 
 function T2_idQuizz(id){
     if(quizzId == undefined){
