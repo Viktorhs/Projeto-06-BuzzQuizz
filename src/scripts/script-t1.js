@@ -58,10 +58,8 @@ function T1_HTMLBase() {
 function T1_renderUserSuccess() {
     document.querySelector(".T1-user").innerHTML = `<div class="T1-user-quizzes-empty">
                                                                 <p>Você não criou nenhum quizz ainda :(</p>
-                                                                 <div>Criar Quizz</div>
+                                                                 <div onClick = "btnCreateQuizz(this)">Criar Quizz</div>
                                                             </div>`
-                                                            
-
 }
 
 

@@ -135,6 +135,7 @@ main {
 
 .T1-all-quizzes ul,
 .T1-user-quizzes ul {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
