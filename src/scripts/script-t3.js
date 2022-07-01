@@ -97,11 +97,11 @@ function btnCreateQuizz(element) {
             if ((newQuizz.title.length <= 20 && newQuizz.title.length <= 65) &&
                 (newQuizz.imgURL.search('https://') != -1) &&
                 (newQuizz.nQ >= 3 && newQuizz.nLv >= 2)) {
-                let html = `
+                let html1 = `
                 <div class="T3-header">Crie suas perguntas</div>
                 <div class="T3-box">`
                 for (let i = 1; i <= newQuizz.nQ; i++) {
-                    html += `
+                    html1 += `
                     <div class="T3-b" id="${i}">
                         <div class="T3-h">
                             <div>
@@ -133,10 +133,11 @@ function btnCreateQuizz(element) {
                         </div>
                     </div>`
                 }
-                html += `
+                html1 += `
                 </div>
                 <div class="T3-btn" onclick="btnCreateQuizz(this)">Prosseguir pra criar níveis</div>`
-                document.querySelector('main').innerHTML = html
+
+                document.querySelector('main').innerHTML = html1
             }
             else {
                 alert('\nREGRAS PARA CRIAÇÃO DE QUIZZ:\n\n- Título do quizz: deve ter no mínimo 20 e no máximo 65 caracteres\n- URL da Imagem: deve ter formato de URL\n- Quantidade de perguntas: no mínimo 3 perguntas\n- Quantidade de níveis: no mínimo 2 níveis')
@@ -144,69 +145,105 @@ function btnCreateQuizz(element) {
             break;
 
         case 'Prosseguir pra criar níveis':
-
-            if (box.childNodes[1].value.length < 20) {
-                alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\n- Texto da pergunta: no mínimo 20 caracteres.')
-                return
-            }
-            //colorValues.match(/[0-9A-Fa-f]{6}/g)
-            if (box.childNodes[3].value.search('#') == -1 || box.childNodes[3].value.length != 7) {
-                alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\n- Cor de fundo: deve ser uma cor em hexadecimal (começar em "#", seguida de 6 caracteres hexadecimais).')
-                return
-            }
-            if (box.childNodes[5].value.childNodes[3] == '' || box.childNodes[7].value.childNodes[3] == '') {
-                alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\n- É obrigatória a inserção da resposta correta e de pelo menos 1 resposta errada.')
-                return
-            }
-            if (box.childNodes[5].childNodes[5].value.search('https://') != -1 && box.childNodes[7].childNodes[5].value.search('https://') != -1) {
-                alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\n- URL das imagens de resposta: deve ter formato de URL.')
-                return
-            }
-
             newQuizz.questions = []
-            //Question Title and Color
-            newQuizz.questions.push([i, box.childNodes[1].value, box.childNodes[3].value])
-
             newQuizz.answers = []
-            //Parei aqui
-
             for (let i = 1; i <= newQuizz.nQ; i++) {
                 box = document.getElementById(i).childNodes[3]
-                if ((box.childNodes[1].value == '' || box.childNodes[3].value == '' && i > 1) ||
-                    (box.childNodes[5].childNodes[3].value == '' && box.childNodes[5].childNodes[5].value == '' && i > 1) ||
-                    (box.childNodes[7].childNodes[3].value == '' && box.childNodes[7].childNodes[5].value == '' && i > 1)) {
-                    alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\n\n')
+                //Validation
+                if (box.childNodes[1].value.length < 20) {
+                    alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nTexto da pergunta: no mínimo 20 caracteres.')
                     return
                 }
-                //Correct Answer
-                newQuizz.answers.push([i, box.childNodes[5].childNodes[3].value, box.childNodes[5].childNodes[5].value, true])
-                //Wrong answers
-                newQuizz.answers.push([i, box.childNodes[7].childNodes[3].value, box.childNodes[7].childNodes[5].value, false])
+                if (box.childNodes[3].value.search('#') == -1 || box.childNodes[3].value.length != 7) { //colorValues.match(/[0-9A-Fa-f]{6}/g)
+                    alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nCor de fundo: deve ser uma cor em hexadecimal (começar em "#", seguida de 6 caracteres hexadecimais).')
+                    return
+                }
+                if (box.childNodes[5].childNodes[3].value == '' || box.childNodes[7].childNodes[3].value == '') {
+                    alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nÉ obrigatória a inserção da resposta correta e de pelo menos 1 resposta errada para cada pergunta.')
+                    return
+                }
+                if (box.childNodes[5].childNodes[5].value.search('https://') == -1 || box.childNodes[7].childNodes[5].value.search('https://') == -1) {
+                    alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nURL das imagens de resposta: deve ter formato de URL.')
+                    return
+                }
+
+                //Get Questions Data ['Id', 'Title', 'Background-color']
+                newQuizz.questions.push([i, box.childNodes[1].value, box.childNodes[3].value])
+
+                //Get Question Answers ['Question Id', 'Answer', 'imgURL', 'true/false(correct/incorrect)']
+                newQuizz.answers.push([i, box.childNodes[5].childNodes[3].value, box.childNodes[5].childNodes[5].value, true]) //True
+                newQuizz.answers.push([i, box.childNodes[7].childNodes[3].value, box.childNodes[7].childNodes[5].value, false]) //False 1
                 if (box.childNodes[9].childNodes[1].value != '' && box.childNodes[9].childNodes[3].value.search('https://') != -1) {
-                    newQuizz.answers.push([i, box.childNodes[9].childNodes[1].value, box.childNodes[9].childNodes[3].value, false])
+                    newQuizz.answers.push([i, box.childNodes[9].childNodes[1].value, box.childNodes[9].childNodes[3].value, false]) //False 2
                 }
                 if (box.childNodes[11].childNodes[1].value != '' && box.childNodes[11].childNodes[3].value.search('https://') != -1) {
-                    newQuizz.answers.push([i, box.childNodes[11].childNodes[1].value, box.childNodes[11].childNodes[3].value, false])
+                    newQuizz.answers.push([i, box.childNodes[11].childNodes[1].value, box.childNodes[11].childNodes[3].value, false]) //False 3
                 }
             }
             console.log(newQuizz.questions)
             console.log(newQuizz.answers)
+
+            let html2 = `
+            <div class="T3-header">Agora, decida os níveis!</div>
+            <div class="T3-box">`
+            for (let i = 1; i <= newQuizz.nLv; i++) {
+                html2 += `
+                <div class="T3-b" id="${i}">
+                    <div class="T3-h">
+                        <div>
+                            <h1>Nível ${i}</h1>
+                            <img class="T3-icon" onclick="toggleExpand(this)" src="img/edit.svg">
+                        </div>
+                    </div>
+                    <div class="T3-m hide">
+                        <input type="text" placeholder="Título do nível">
+                        <input type="text" placeholder="% de acerto mínima">
+                        <input type="text" placeholder="URL da imagem do nível">
+                        <textarea type="text" placeholder="Descrição do nível" rows="5"></textarea>
+                    </div>
+                </div>`
+            }
+            html2 += `
+            </div>
+            <div class="T3-btn" onclick="btnCreateQuizz(this)">Finalizar Quizz</div>`
+
+            document.querySelector('main').innerHTML = html2
             break;
+
         case 'Finalizar Quizz':
-            box = document.querySelector('.T3-m')
-            if ((box.childNodes[1].value.length >= 10) &&
-                (box.childNodes[3].value >= 0 && box.childNodes[3].value <= 100) &&
-                (box.childNodes[5].value.search('https://') != -1) &&
-                (box.childNodes[1].value.length >= 30)) {
-                document.querySelector('main').innerHTML = T3_4
+            newQuizz.levels = []
+            for (let i = 1; i <= newQuizz.nLv; i++) {
+                box = document.getElementById(i).childNodes[3]
+
+                if ((box.childNodes[1].value.length < 10) ||
+                    (box.childNodes[3].value) < 0 || box.childNodes[3].value > 100 || isNaN(Number(box.childNodes[3].value)) ||
+                    (box.childNodes[5].value.search('https://') == -1) ||
+                    (box.childNodes[7].value.length < 30)) {
+                    alert('REGRAS PARA CRIAÇÃO DE NÍVEIS DO QUIZZ:\n\nTítulo do nível: mínimo de 10 caracteres.\n% de acerto mínima: um número entre 0 e 100.\nURL da imagem do nível: deve ter formato de URL.\nDescrição do nível: mínimo de 30 caracteres.\nÉ obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%')
+                    return
+                }
+
+                newQuizz.levels.push([box.childNodes[1].value, box.childNodes[3].value, box.childNodes[5].value, box.childNodes[7].value])
             }
-            else {
-                alert('REGRAS PARA CRIAÇÃO DE PERGUNTAS DO QUIZZ:\n\nTítulo do nível: mínimo de 10 caracteres.\n% de acerto mínima: um número entre 0 e 100.\nURL da imagem do nível: deve ter formato de URL.\nDescrição do nível: mínimo de 30 caracteres.\nÉ obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%')
-            }
+            console.log(newQuizz.levels)
+            console.log(newQuizz)
+
+            let html3 = `
+                <div class="T3-header">Seu quizz está pronto!</div>
+                <div class="T3-boxQuizz">
+                    <img src="${newQuizz.imgURL}">
+                    <h1>${newQuizz.title}</h1>
+                </div>
+                <div class="T3-btn" onclick="btnCreateQuizz(this)">Acessar Quizz</div>
+                <div class="T3-btn2" onclick="btnCreateQuizz(this)">Voltar pra home</div>`
+
+            document.querySelector('main').innerHTML = html3
             break;
+
         case 'Acessar Quizz':
             //document.querySelector('main').innerHTML = T3_1
             break;
+
         case 'Voltar pra home':
             document.querySelector('main').innerHTML = T3_1
             break;
