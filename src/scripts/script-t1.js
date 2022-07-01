@@ -70,6 +70,8 @@ function T1_renderAllQuizzes() {
 }
 
 function T1_renderAllSuccess(success) {
+    T1_HTMLBase()
+    T1_renderUserSuccess()
     quizzesAllUsers = success.data
     for(let i = 0; i < quizzesAllUsers.length; i++){
         document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${quizzesAllUsers[i].id})">
@@ -99,6 +101,5 @@ function T1_backHome(){
     T1_renderAllQuizzes()
     cleanQuizzId()
 }
-T1_HTMLBase()
-T1_renderUserSuccess()
+
 T1_renderAllQuizzes()

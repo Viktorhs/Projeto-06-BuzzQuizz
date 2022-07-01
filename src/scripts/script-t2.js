@@ -69,7 +69,7 @@ function T2_baseHTML(id){
                                                 </ul>
                                                 <div class="result"></div>
                                                 <div class="back-home" onclick="T1_backHome()">Voltar para home</div>
-                                                `;
+                                                `
 }
 
 function T2_renderQuizzSelected(id){
