@@ -1,6 +1,7 @@
 const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
 let quizzesAllUsers;
-let idQuizzUser = localStorage
+let idQuizzUserSerializados = localStorage
+let idQuizzUser;
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
                                     <div>Criar Quizz</div>
@@ -57,8 +58,7 @@ function T1_HTMLBase() {
 }
 
 function T1_renderUserSuccess() {
-
-    if(idQuizzUser != undefined){
+    if(idQuizzUserSerializados != undefined){
         document.querySelector(".T1-user").innerHTML =`<div class="T1-user-quizzes">
                                                             <span>
                                                                 <h2>Seus Quizzes</h2>
@@ -83,9 +83,24 @@ function T1_renderAllQuizzes() {
     promisse.then(T1_renderAllSuccess)
 }
 
+function T1_renderUserQUizzes() {
+    for(let i = 0; i < idQuizzUserSerializados.length; i++){
+        idQuizzUser = JSON.parse(idQuizzUserSerializados[i])
+        document.querySelector(".T1-user-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${idQuizzUser.id})">
+                                                                        <img src="${idQuizzUser.image}">
+                                                                        <div><h3>${idQuizzUser.title}</h3></div>
+                                                                        </li>`
+
+        
+    }
+
+
+}
+
 function T1_renderAllSuccess(success) {
     T1_HTMLBase()
     T1_renderUserSuccess()
+    T1_renderUserQUizzes()
     quizzesAllUsers = success.data
     for(let i = 0; i < quizzesAllUsers.length; i++){
         if(idQuizzUser != undefined && Number(idQuizzUser) === Number(quizzesAllUsers[i].id)){
