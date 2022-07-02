@@ -121,7 +121,7 @@ function btnCreateQuizz(element) {
                         </div>
                         <div class="T3-m hide">
                             <input type="text" placeholder="Texto da pergunta">
-                            <input type="text" placeholder="Cor de fundo da pergunta">
+                            <input type="color" placeholder="Cor de fundo da pergunta">
                             <div class="T3-correctAnswer">
                                 <h1>Resposta correta</h1>
                                 <input type="text" placeholder="Resposta correta">
@@ -167,7 +167,7 @@ function btnCreateQuizz(element) {
                     alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nTexto da pergunta: no mínimo 20 caracteres.')
                     return
                 }
-                if (box.childNodes[3].value.search('#') == -1 || box.childNodes[3].value.length != 7) { //colorValues.match(/[0-9A-Fa-f]{6}/g)
+                if (isColor(box.childNodes[3].value == false)) {
                     alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nCor de fundo: deve ser uma cor em hexadecimal (começar em "#", seguida de 6 caracteres hexadecimais).')
                     return
                 }
@@ -292,6 +292,11 @@ function btnCreateQuizz(element) {
             T1_backHome()
             break;
     }
+}
+
+function isColor(color) {
+    const rgx = /^#[0-9A-Fa-f]{6}$/i;
+    return rgx.test(color);
 }
 
 function toggleExpand(element) {
