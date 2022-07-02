@@ -43,6 +43,7 @@ function T2_idQuizz(id){
 }
 
 function T2_selectedQuizzeRender(){
+    TLoading()
     let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
     promisse.catch(T2_selectErro);
     promisse.then(T2_selectSuccess);

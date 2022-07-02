@@ -81,6 +81,7 @@ function T1_renderAllQuizzes() {
     let promisse = axios.get(`${urlAPI}/quizzes`)
     promisse.catch(T1_renderAllError = () => alert('Erro em obter os Quizzes volte mais tarde!'));
     promisse.then(T1_renderAllSuccess)
+    TLoading()
 }
 
 function T1_renderUserQUizzes() {
@@ -89,6 +90,10 @@ function T1_renderUserQUizzes() {
         document.querySelector(".T1-user-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${idQuizzUser.id})">
                                                                         <img src="${idQuizzUser.image}">
                                                                         <div><h3>${idQuizzUser.title}</h3></div>
+                                                                        <span class = "buttons-edit-del">
+                                                                        <ion-icon name="create-outline"></ion-icon>
+                                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                                        </span>
                                                                         </li>`
 
         
@@ -103,19 +108,10 @@ function T1_renderAllSuccess(success) {
     T1_renderUserQUizzes()
     quizzesAllUsers = success.data
     for(let i = 0; i < quizzesAllUsers.length; i++){
-        if(idQuizzUser != undefined && Number(idQuizzUser) === Number(quizzesAllUsers[i].id)){
-            document.querySelector(".T1-user-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${quizzesAllUsers[i].id})">
-                                                                            <img src="${quizzesAllUsers[i].image}">
-                                                                            <div><h3>${quizzesAllUsers[i].title}</h3></div>
-                                                                          </li>`
-
-        }else{
-            document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${quizzesAllUsers[i].id})">
-                                                                            <img src="${quizzesAllUsers[i].image}">
-                                                                            <div><h3>${quizzesAllUsers[i].title}</h3></div>
-                                                                        </li>`
-
-        }
+        document.querySelector(".T1-all-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${quizzesAllUsers[i].id})">
+                                                                        <img src="${quizzesAllUsers[i].image}">
+                                                                        <div><h3>${quizzesAllUsers[i].title}</h3></div>
+                                                                    </li>`
     }
 
 
@@ -134,6 +130,15 @@ function T3_baseHTML(){
     </div>
     <div class="T3-btn" onclick="btnCreateQuizz(this)">Prosseguir pra criar perguntas</div>`
 }
+
+function TLoading() {
+    document.querySelector("main").innerHTML = `        <div class="loading">
+                                                            <div class="loader">Loading...</div>
+                                                            <h1>Carregando</h1>
+                                                        </div>`
+
+}
+
 
 function T1_backHome(){
     T1_HTMLBase()
