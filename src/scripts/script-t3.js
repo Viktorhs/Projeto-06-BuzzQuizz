@@ -87,9 +87,8 @@ let newQuizz = {
 
 let apiQuizz = {
     title: '',
-    imgURL: '',
+    image: '',
     questions: [],
-    answers: [],
     levels: []
 }
 
@@ -101,6 +100,9 @@ function btnCreateQuizz(element) {
             newQuizz.imgURL = box.childNodes[3].value
             newQuizz.nQ = box.childNodes[5].value
             newQuizz.nLv = box.childNodes[7].value
+
+            apiQuizz.title = box.childNodes[1].value
+            apiQuizz.image = box.childNodes[3].value
 
             if ((newQuizz.title.length >= 20 && newQuizz.title.length <= 65) &&
                 (newQuizz.imgURL.search('https://') != -1) &&
@@ -155,6 +157,9 @@ function btnCreateQuizz(element) {
         case 'Prosseguir pra criar níveis':
             newQuizz.questions = []
             newQuizz.answers = []
+
+            apiQuizz.questions = []
+
             for (let i = 1; i <= newQuizz.nQ; i++) {
                 box = document.getElementById(i).childNodes[3]
                 //Validation
@@ -177,15 +182,23 @@ function btnCreateQuizz(element) {
 
                 //Get Questions Data ['Id', 'Title', 'Background-color']
                 newQuizz.questions.push([i, box.childNodes[1].value, box.childNodes[3].value])
+                apiQuizz.questions.push({ title: box.childNodes[1].value, color: box.childNodes[3].value })
 
                 //Get Question Answers ['Question Id', 'Answer', 'imgURL', 'true/false(correct/incorrect)']
                 newQuizz.answers.push([i, box.childNodes[5].childNodes[3].value, box.childNodes[5].childNodes[5].value, true]) //True
                 newQuizz.answers.push([i, box.childNodes[7].childNodes[3].value, box.childNodes[7].childNodes[5].value, false]) //False 1
+
+                apiQuizz.questions[i - 1].answers = []
+                apiQuizz.questions[i - 1].answers.push({ text: box.childNodes[5].childNodes[3].value, image: box.childNodes[5].childNodes[5].value, isCorrectAnswer: true }) //True
+                apiQuizz.questions[i - 1].answers.push({ text: box.childNodes[7].childNodes[3].value, image: box.childNodes[7].childNodes[5].value, isCorrectAnswer: false }) //False 1
+
                 if (box.childNodes[9].childNodes[1].value != '' && box.childNodes[9].childNodes[3].value.search('https://') != -1) {
                     newQuizz.answers.push([i, box.childNodes[9].childNodes[1].value, box.childNodes[9].childNodes[3].value, false]) //False 2
+                    apiQuizz.questions[i - 1].answers.push({ text: box.childNodes[9].childNodes[1].value, image: box.childNodes[9].childNodes[3].value, isCorrectAnswer: false }) //False 2
                 }
                 if (box.childNodes[11].childNodes[1].value != '' && box.childNodes[11].childNodes[3].value.search('https://') != -1) {
                     newQuizz.answers.push([i, box.childNodes[11].childNodes[1].value, box.childNodes[11].childNodes[3].value, false]) //False 3
+                    apiQuizz.questions[i - 1].answers.push({ text: box.childNodes[11].childNodes[1].value, image: box.childNodes[11].childNodes[3].value, isCorrectAnswer: false }) //False 3
                 }
             }
             console.log(newQuizz.questions)
@@ -221,6 +234,9 @@ function btnCreateQuizz(element) {
         case 'Finalizar Quizz':
             let existsZero = false
             newQuizz.levels = []
+
+            apiQuizz.levels = []
+
             for (let i = 1; i <= newQuizz.nLv; i++) {
                 box = document.getElementById(i).childNodes[3]
 
@@ -232,11 +248,13 @@ function btnCreateQuizz(element) {
                     return
                 }
 
-                if (box.childNodes[3].value === 0) {
+                if (box.childNodes[3].value == 0) {
                     existsZero = true
                 }
 
                 newQuizz.levels.push([box.childNodes[1].value, box.childNodes[3].value, box.childNodes[5].value, box.childNodes[7].value])
+
+                apiQuizz.levels.push({ title: box.childNodes[1].value, image: box.childNodes[5].value, text: box.childNodes[7].value, minValue: box.childNodes[3].value })
             }
 
             if (existsZero === false) {
@@ -247,7 +265,7 @@ function btnCreateQuizz(element) {
             console.log(newQuizz.levels)
             console.log(newQuizz)
 
-            convertQuizz(newQuizz)
+            console.log(apiQuizz)
 
             let html3 = `
                 <div class="T3-header">Seu quizz está pronto!</div>
@@ -273,8 +291,4 @@ function btnCreateQuizz(element) {
 
 function toggleExpand(element) {
     element.parentNode.parentNode.parentNode.querySelector('.T3-m').classList.toggle('hide')
-}
-
-
-function convertQuizz(quizz) {
 }
