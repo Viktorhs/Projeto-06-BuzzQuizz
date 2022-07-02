@@ -201,8 +201,6 @@ function btnCreateQuizz(element) {
                     apiQuizz.questions[i - 1].answers.push({ text: box.childNodes[11].childNodes[1].value, image: box.childNodes[11].childNodes[3].value, isCorrectAnswer: false }) //False 3
                 }
             }
-            console.log(newQuizz.questions)
-            console.log(newQuizz.answers)
 
             let html2 = `
             <div class="T3-header">Agora, decida os níveis!</div>
@@ -262,10 +260,16 @@ function btnCreateQuizz(element) {
                 return
             }
 
-            console.log(newQuizz.levels)
-            console.log(newQuizz)
-
-            console.log(apiQuizz)
+            //Post NewQuizz in the API and save Id on localStorage
+            const postNewQuizz = axios.post(urlAPI + '/quizzes', apiQuizz)
+            postNewQuizz.then((resp) => {
+                localStorage[localStorage.length] = resp.data.id
+            })
+            postNewQuizz.catch((resp) => {
+                console.log(resp)
+                alert('Ocorreu um ERRO!')
+                return
+            })
 
             let html3 = `
                 <div class="T3-header">Seu quizz está pronto!</div>
