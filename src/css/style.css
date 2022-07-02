@@ -256,6 +256,7 @@ body .t1 {
 .T2-question-box li{
     max-width: 367px;
     margin: 18px 0;
+    cursor: pointer;
 }
 .T2-question-box li:nth-child(odd){
     margin-right:24px ;

@@ -288,7 +288,7 @@ function btnCreateQuizz(element) {
             break;
 
         case 'Voltar pra home':
-            document.querySelector('main').innerHTML = T3_1
+            T1_backHome()
             break;
     }
 }
