@@ -121,7 +121,7 @@ function btnCreateQuizz(element) {
                         </div>
                         <div class="T3-m hide">
                             <input type="text" placeholder="Texto da pergunta">
-                            <input type="color" placeholder="Cor de fundo da pergunta">
+                            <input type="text" placeholder="Cor de fundo da pergunta">
                             <div class="T3-correctAnswer">
                                 <h1>Resposta correta</h1>
                                 <input type="text" placeholder="Resposta correta">
