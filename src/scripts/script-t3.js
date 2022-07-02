@@ -85,6 +85,14 @@ let newQuizz = {
     levels: [] //['Title', '% to achieve', 'imgURL', 'Description']
 }
 
+let apiQuizz = {
+    title: '',
+    imgURL: '',
+    questions: [],
+    answers: [],
+    levels: []
+}
+
 function btnCreateQuizz(element) {
     let box = document.querySelector('.T3-b')
     switch (element.innerHTML) {
@@ -211,6 +219,7 @@ function btnCreateQuizz(element) {
             break;
 
         case 'Finalizar Quizz':
+            let existsZero = false
             newQuizz.levels = []
             for (let i = 1; i <= newQuizz.nLv; i++) {
                 box = document.getElementById(i).childNodes[3]
@@ -223,10 +232,22 @@ function btnCreateQuizz(element) {
                     return
                 }
 
+                if (box.childNodes[3].value === 0) {
+                    existsZero = true
+                }
+
                 newQuizz.levels.push([box.childNodes[1].value, box.childNodes[3].value, box.childNodes[5].value, box.childNodes[7].value])
             }
+
+            if (existsZero === false) {
+                alert('REGRAS PARA CRIAÇÃO DE NÍVEIS DO QUIZZ:\n\nÉ obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%')
+                return
+            }
+
             console.log(newQuizz.levels)
             console.log(newQuizz)
+
+            convertQuizz(newQuizz)
 
             let html3 = `
                 <div class="T3-header">Seu quizz está pronto!</div>
@@ -241,7 +262,7 @@ function btnCreateQuizz(element) {
             break;
 
         case 'Acessar Quizz':
-            //document.querySelector('main').innerHTML = T3_1
+
             break;
 
         case 'Voltar pra home':
@@ -252,4 +273,8 @@ function btnCreateQuizz(element) {
 
 function toggleExpand(element) {
     element.parentNode.parentNode.parentNode.querySelector('.T3-m').classList.toggle('hide')
+}
+
+
+function convertQuizz(quizz) {
 }
