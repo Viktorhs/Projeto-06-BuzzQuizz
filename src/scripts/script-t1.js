@@ -1,6 +1,6 @@
 const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
 let quizzesAllUsers;
-let idQuizzUser = localStorage.getItem("id")
+let idQuizzUser = localStorage
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
                                     <div>Criar Quizz</div>
