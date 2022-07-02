@@ -25,22 +25,29 @@ let T2_templateSelected = ` <div class="T2-img-quizz">
                                 </ul>
                             </li>
                             </ul>`
-
 let quizzId;
 let questionsQuizz;
+let quizzLevels;
 let correct;
 let incorrect;
 
-function T2_selectedQuizzeRender(id){
+function cleanQuizzId(){
+    quizzId = undefined;
+}
+
+function T2_idQuizz(id){
     if(quizzId == undefined){
         quizzId = id;
-        let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
-        promisse.catch(T2_selectErro);
-        promisse.then(T2_selectSuccess);
-        correct = 0;
-        incorrect = 0;
+        T2_selectedQuizzeRender()
     }
+}
 
+function T2_selectedQuizzeRender(){
+    let promisse = axios.get(`${urlAPI}/quizzes/${quizzId}`);
+    promisse.catch(T2_selectErro);
+    promisse.then(T2_selectSuccess);
+    correct = 0;
+    incorrect = 0;
 } 
 
 function T2_selectErro(erro){
@@ -54,18 +61,21 @@ function T2_selectSuccess(success){
 }
 
 function T2_baseHTML(id){
-
     document.querySelector("main").innerHTML = `<div class="T2-img-quizz">
                                                     <img src="${id.image}" alt="">
                                                     <div><h3>${id.title}</h3></div>
                                                 </div>
                                                 <ul class="T2-questions">
-                                                </ul>`;
+                                                </ul>
+                                                <div class="result"></div>
+                                                <div class="back-home" onclick="T1_backHome()">Voltar para home</div>
+                                                `
 }
 
 function T2_renderQuizzSelected(id){
     let cont = 0;
     let answersQuizz;
+    quizzLevels = id.levels
     questionsQuizz = id.questions;
     for(let i = 0; i < questionsQuizz.length; i++){
         document.querySelector(".T2-questions").innerHTML += `  <li class="T2-question-box p${cont}" id = "${cont}">
@@ -86,41 +96,84 @@ function T2_renderQuizzSelected(id){
     document.querySelector("header").scrollIntoView()
 }
 
+
+
 function T2_selectAnswers(elemento){
-    let classSelected = elemento.className;
+    let classSelected = elemento.parentNode.className;
     let num;
 
-    if(classSelected == ""){
+    if(classSelected !== "block"){
+        elemento.parentNode.classList.add("block")
         let selectedAnswer = elemento.querySelector("p").innerHTML;
         num = elemento.parentNode.parentNode.classList;
         num = num[1].replace("p", '');
         let allAnswer = elemento.parentNode.querySelectorAll("li")
         let correctAnswer = questionsQuizz[num].answers.filter((answerC) => answerC.isCorrectAnswer === true)
-    
-        if(correctAnswer[0].text == selectedAnswer){
-            elemento.querySelector("p").parentNode.classList.add("correct")
-            for(let i = 0; i < allAnswer.length; i++){
-                if(allAnswer[i].className != "correct"){
-                    allAnswer[i].classList.add("noSelect")
-                }
+        
+        for(let i = 0; i < allAnswer.length; i++){
+            if(allAnswer[i].outerText !== correctAnswer[0].text){
+                allAnswer[i].classList.add("incorrect")
+            }else{
+                allAnswer[i].classList.add("correct")
             }
+        }
 
+        for(let i = 0; i < allAnswer.length; i++){
+            if(allAnswer[i].outerText !== selectedAnswer){
+                allAnswer[i].classList.add("noSelect")
+            }
+        }
+
+        if(correctAnswer[0].text == selectedAnswer){
             correct++
         }else{
-            elemento.querySelector("p").parentNode.classList.add("incorrect")
-            for(let i = 0; i < allAnswer.length; i++){
-                if(allAnswer[i].className != "incorrect"){
-                    allAnswer[i].classList.add("noSelect")
-                }
-            }
             incorrect++
         }
-        num++
-        if(num < allAnswer.length - 1){
+
+        if(num < questionsQuizz.length - 1){
+            num++
             setTimeout(() => document.getElementById(num).scrollIntoView(), 2000)
         }
+        T2_verify(questionsQuizz.length);
+    }else{
+        return
     }
-}   
+}  
+   
+
+function T2_verify(teste){
+    let confirm = correct + incorrect;
+    if(confirm == teste){
+       T2_resultQuizz();
+       setTimeout(() => document.querySelector("main .result").scrollIntoView(), 2000)
+    }
+}
+
+function T2_resultQuizz() {
+    let hitPercentage = Math.round((correct * 100) / questionsQuizz.length);
+
+    let result = quizzLevels.sort(function(a,b) { 
+        return b.minValue - a.minValue}) ;
+
+    for(let i = 0; i < result.length; i++){
+        if(hitPercentage >= Number(result[i].minValue)){
+            document.querySelector("main .result").innerHTML += ` <div class="T2-levels-box">
+                                                                <div style="background: #EC362D;">${hitPercentage}% de acerto ${result[i].title}</div>
+                                                                <div class="T2-levels-content">
+                                                                    <img src="${result[i].image}" alt="">
+                                                                    <h4>${result[i].text}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="reset-quizz" onClick ="T2_resetQuizz()">Reiniciar Quizz</div>`
+            return
+        }
+    }
+}
+
+function T2_resetQuizz(){
+    T2_selectedQuizzeRender()
+    document.getElementById(0).scrollIntoView()
+}
 
 function comparador() { 
 	return Math.random() - 0.5; 

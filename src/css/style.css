@@ -135,6 +135,7 @@ main {
 
 .T1-all-quizzes ul,
 .T1-user-quizzes ul {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -213,12 +214,12 @@ body .t1 {
     font-weight: 400;
     font-size: 39px;
     line-height: 46px;
-    word-break: break-all;
+    word-break: keep-all;
 
     color: #FFFFFF;
 }
 
-.T2-question-box {
+.T2-question-box, .T2-levels-box {
     margin: 42px 0;
     width: 759px;
     padding: 27px 35px 35px 25px;
@@ -229,9 +230,65 @@ body .t1 {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.T2-question-box div {
+.T2-question-box div, .T2-levels-box div {
     width: 100%;
     min-height: 138px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;
+    word-break: keep-all;
+    background-color: #FFFFFF;
+}
+
+.T2-question-box ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.T2-question-box li{
+    max-width: 367px;
+    margin: 18px 0;
+}
+.T2-question-box li:nth-child(odd){
+    margin-right:24px ;
+}
+.T2-question-box img{
+    width: 332px;
+    height: 300px;
+    margin-bottom: 9px;
+}
+
+.T2-question-box p{
+    width: 332px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    word-break: keep-all;
+}
+
+.T2-levels-box {
+    margin-top: 57px;
+    width: 759px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.T2-levels-box div {
+    width: 100%;
+    min-height: 99px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -240,36 +297,80 @@ body .t1 {
     font-size: 23px;
     line-height: 27px;
     color: #FFFFFF;
-    word-break: break-all;
+    word-break: keep-all;
     background-color: #FFFFFF;
 }
 
-.T2-question-box ul {
+.T2-levels-box img{
+    width: 364px;
+    height: 273px;
+}
+
+.T2-levels-content{
+    margin-top: 18px ;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.T2-question-box li {
-    height: 367px;
-    margin: 18px 0;
-}
-.T2-question-box li:nth-child(odd){
-    margin-right:24px ;
-}
-.T2-question-box img {
-    width: 332px;
-    height: 300px;
-    margin-bottom: 9px;
+.T2-levels-content h4{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    width: 328px;
+    height: 273px;
+    margin-left: 21px;
+
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 25px;
+    color: #484848;
+    word-break: keep-all;
 }
 
-.T2-question-box p {
-    width: 332px;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-    word-break: keep-all;
+.result{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset-quizz{
+    margin-top: 12px;
+    width: 260px;
+    height: 52px;
+    background: #EC362D;
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+
+    color: #FFF5F4;
+    cursor: pointer;
+}
+
+.back-home{
+    width: 220px;
+    height: 44px;
+    margin-top: 16px;
+    margin-bottom: 85px;
+
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #818181; 
+    cursor: pointer;
 }
 
 .correct p {
