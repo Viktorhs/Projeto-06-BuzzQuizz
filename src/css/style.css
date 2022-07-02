@@ -232,7 +232,7 @@ body .t1 {
 
 .T2-question-box div, .T2-levels-box div {
     width: 100%;
-    min-height: 138px;
+    height: 138px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -391,7 +391,20 @@ body .t1 {
     }
 
     body .t1{
-        width: 95%;
+        width: 90%;
+    }
+    
+    .T1-all-quizzes img,
+    .T1-user-quizzes img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    
+    .T1-all-quizzes li,
+    .T1-user-quizzes li {
+        width: 100%;
     }
 
     .T1-user-quizzes-empty {
@@ -400,7 +413,7 @@ body .t1 {
 
     .T1-all-quizzes ul,
     .T1-user-quizzes ul {
-        justify-content: space-evenly;
+        justify-content: center;
     }
 
     .T1-all-quizzes li,
@@ -419,19 +432,36 @@ body .t1 {
         padding: 18px;
     }
 
+    .T2-question-box div, .T2-levels-box div {
+        width: 100%;
+        height: 89px;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 29px;
+        color: #FFFFFF;
+        word-break: keep-all;
+        background-color: #FFFFFF;
+    }
+    
+
     .T2-question-box ul {
         width: 100%;
     }
+    .T2-question-box li:nth-child(odd){
+        margin: 0;
+    }
 
     .T2-question-box li {
-        width: 100%;
-        height: 100%;
-        margin: 18px 0;
+        width: 48%;
+        height: 48%;
+        
     }
 
     .T2-question-box img {
         width: 100%;
         height: 70%;
+        margin-bottom: 4px;
+        object-fit: cover;
     }
     
     .T2-question-box p {
@@ -440,53 +470,13 @@ body .t1 {
         line-height: 15px;
 
     }
-}
-
-@media (max-width: 380px) {
-
 
     .T2-img-quizz {
-        height: 142px;
-        margin-bottom: 12px;
-    }   
+        height: 150px;
+    }
     .T2-img-quizz h3 {
         font-weight: 400;
         font-size: 19px;
         line-height: 22px;
-    }
-    
-    .T2-question-box {
-        margin: 12px 0;
-        width: 375px;
-        max-height: 436px;
-        padding: 16px;
-    }
-    
-    .T2-question-box div {
-        width: 340px;
-        height: 89px;
-    
-        font-weight: 700;
-        font-size: 19px;
-        line-height: 22px;
-    }
-
-    .T2-question-box li {
-        width: 163px;
-    }
-    .T2-question-box li:nth-child(odd){
-        margin-right:12px ;
-    }
-    .T2-question-box img {
-        width: 163px;
-        height: 113px;
-        margin-bottom: 4px;
-    }
-    
-    .T2-question-box p {
-        width: 163px;
-        font-weight: 700;
-        font-size: 13px;
-        line-height: 15px;  
     }
 }
