@@ -139,6 +139,12 @@ function TLoading() {
 
 }
 
+function deleteQuizz(id){
+    if (window.confirm("Você realmente quer sair?")) {
+        window.open("sair.html", "Obrigado pela visita!");
+      }
+}
+
 
 function T1_backHome(){
     T1_HTMLBase()

@@ -263,7 +263,7 @@ function btnCreateQuizz(element) {
             //Post NewQuizz in the API and save Id on localStorage
             const postNewQuizz = axios.post(urlAPI + '/quizzes', apiQuizz)
             postNewQuizz.then((resp) => {
-                localStorage[localStorage.length] = JSON.stringify(resp)
+                localStorage[localStorage.length] = JSON.stringify(resp.data)
                 newQuizz.apiObj = resp
             })
             postNewQuizz.catch((resp) => {
