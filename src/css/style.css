@@ -242,7 +242,7 @@ body .t1 {
     font-size: 23px;
     line-height: 27px;
     color: #FFFFFF;
-    word-break: keep-all;
+    word-break: break-word;
     background-color: #FFFFFF;
 }
 
@@ -273,7 +273,7 @@ body .t1 {
     font-size: 20px;
     line-height: 23px;
     color: #000000;
-    word-break: keep-all;
+    word-break: break-word;
 }
 
 .T2-levels-box {
@@ -298,7 +298,7 @@ body .t1 {
     font-size: 23px;
     line-height: 27px;
     color: #FFFFFF;
-    word-break: keep-all;
+    word-break: break-word;
     background-color: #FFFFFF;
 }
 
@@ -327,7 +327,7 @@ body .t1 {
     font-size: 19px;
     line-height: 25px;
     color: #484848;
-    word-break: keep-all;
+    word-break: break-word;
 }
 
 .result{
