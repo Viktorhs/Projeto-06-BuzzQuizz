@@ -1,7 +1,7 @@
 const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
 let quizzesAllUsers;
 let idQuizzUserSerializados = localStorage
-let idQuizzUser;
+let idQuizzUser = [];
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
                                     <div>Criar Quizz</div>
@@ -58,7 +58,7 @@ function T1_HTMLBase() {
 }
 
 function T1_renderUserSuccess() {
-    if(idQuizzUserSerializados != undefined){
+    if(idQuizzUserSerializados.length != 0){
         document.querySelector(".T1-user").innerHTML =`<div class="T1-user-quizzes">
                                                             <span>
                                                                 <h2>Seus Quizzes</h2>
@@ -85,14 +85,15 @@ function T1_renderAllQuizzes() {
 }
 
 function T1_renderUserQUizzes() {
+    idQuizzUser = []
     for(let i = 0; i < idQuizzUserSerializados.length; i++){
-        idQuizzUser = JSON.parse(idQuizzUserSerializados[i])
-        document.querySelector(".T1-user-quizzes ul").innerHTML +=   `<li onClick ="T2_idQuizz(${idQuizzUser.id})">
-                                                                        <img src="${idQuizzUser.image}">
-                                                                        <div><h3>${idQuizzUser.title}</h3></div>
+        idQuizzUser.push(JSON.parse(idQuizzUserSerializados[i]))
+        document.querySelector(".T1-user-quizzes ul").innerHTML +=   `<li id = "${i}">
+                                                                        <img src="${idQuizzUser[i].image}">
+                                                                        <div onClick ="T2_idQuizz(${idQuizzUser[i].id})"><h3>${idQuizzUser[i].title}</h3></div>
                                                                         <span class = "buttons-edit-del">
                                                                         <ion-icon name="create-outline"></ion-icon>
-                                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                                        <ion-icon name="trash-outline" onClick = "deleteQuizz(${i})"></ion-icon>
                                                                         </span>
                                                                         </li>`
 
@@ -140,8 +141,18 @@ function TLoading() {
 }
 
 function deleteQuizz(id){
-    if (window.confirm("Você realmente quer sair?")) {
-        window.open("sair.html", "Obrigado pela visita!");
+    if (window.confirm("Seu quizz sera apagado tudo bem?")) {
+        TLoading()
+        let key = idQuizzUser[id].key;
+        let promisse = axios.delete(`${urlAPI}/quizzes/${idQuizzUser[id].id}`, {
+            headers: {
+                'Secret-Key': key
+            }
+          })
+        promisse.catch(() => alert("Erro na remoção do quizz"))
+        promisse.then(() => {
+            localStorage.removeItem(`${id}`)
+            T1_backHome()})
       }
 }
 

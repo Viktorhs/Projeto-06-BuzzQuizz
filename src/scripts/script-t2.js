@@ -52,7 +52,9 @@ function T2_selectedQuizzeRender(){
 } 
 
 function T2_selectErro(erro){
-    console.log(erro);
+    if (window.confirm("Quizz não encontrado deseja atualizar a pagina?")) {
+        T1_backHome()
+      }
 }
 
 function T2_selectSuccess(success){
