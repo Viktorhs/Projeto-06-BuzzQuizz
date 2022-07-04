@@ -93,7 +93,6 @@ function T1_renderUserQUizzes() {
                                                                         <img src="${idQuizzUser[i].image}">
                                                                         <div onClick ="T2_idQuizz(${idQuizzUser[i].id})"><h3>${idQuizzUser[i].title}</h3></div>
                                                                         <span class = "buttons-edit-del">
-                                                                        <ion-icon name="create-outline"></ion-icon>
                                                                         <ion-icon name="trash-outline" onClick = "deleteQuizz(${i})"></ion-icon>
                                                                         </span>
                                                                         </li>`
@@ -166,7 +165,7 @@ function localStorangeOrg(id) {
             
         }
     }
-    
+
     localStorage.clear()
 
     for(let i = 0 ; i < oldLocal.length ; i++){
