@@ -170,7 +170,7 @@ function btnCreateQuizz(element) {
                     alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nTexto da pergunta: no mínimo 20 caracteres.')
                     return
                 }
-                if (isColor(box.childNodes[3].value == false)) {
+                if (isColor(box.childNodes[3].childNodes[1].value == false)) {
                     alert('REGRA DE PERGUNTAS DO QUIZZ:\n\nCor de fundo: deve ser uma cor em hexadecimal (começar em "#", seguida de 6 caracteres hexadecimais).')
                     return
                 }
@@ -184,8 +184,8 @@ function btnCreateQuizz(element) {
                 }
 
                 //Get Questions Data ['Id', 'Title', 'Background-color']
-                newQuizz.questions.push([i, box.childNodes[1].value, box.childNodes[3].value])
-                apiQuizz.questions.push({ title: box.childNodes[1].value, color: box.childNodes[3].value })
+                newQuizz.questions.push([i, box.childNodes[1].value, box.childNodes[3].childNodes[1].value])
+                apiQuizz.questions.push({ title: box.childNodes[1].value, color: box.childNodes[3].childNodes[1].value })
 
                 //Get Question Answers ['Question Id', 'Answer', 'imgURL', 'true/false(correct/incorrect)']
                 newQuizz.answers.push([i, box.childNodes[5].childNodes[3].value, box.childNodes[5].childNodes[5].value, true]) //True
