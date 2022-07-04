@@ -49,7 +49,7 @@ function T2_selectedQuizzeRender(){
     promisse.then(T2_selectSuccess);
     correct = 0;
     incorrect = 0;
-} 
+}
 
 function T2_selectErro(erro){
     if (window.confirm("Quizz não encontrado deseja atualizar a pagina?")) {
@@ -141,7 +141,7 @@ function T2_selectAnswers(elemento){
     }else{
         return
     }
-}  
+}
    
 
 function T2_verify(teste){
