@@ -2,6 +2,7 @@ const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
 let quizzesAllUsers;
 let idQuizzUserSerializados = localStorage
 let idQuizzUser = [];
+let oldLocal = []
 let T1templateUserQuizzesEmpty = `<div class="T1-user-quizzes-empty">
                                     <p>Você não criou nenhum quizz ainda :(</p>
                                     <div>Criar Quizz</div>
@@ -151,11 +152,27 @@ function deleteQuizz(id){
           })
         promisse.catch(() => alert("Erro na remoção do quizz"))
         promisse.then(() => {
-            localStorage.removeItem(`${id}`)
+            idQuizzUserSerializados = localStorage
+            localStorangeOrg(id)
             T1_backHome()})
       }
 }
 
+function localStorangeOrg(id) {
+    let oldLocal = [];
+    for(let i = 0; i < idQuizzUserSerializados.length ; i++){
+        if(i !== id){
+            oldLocal.push(JSON.parse(idQuizzUserSerializados[i]))
+            
+        }
+    }
+    
+    localStorage.clear()
+
+    for(let i = 0 ; i < oldLocal.length ; i++){
+        localStorage[localStorage.length] = JSON.stringify(oldLocal[i])
+    }
+}
 
 function T1_backHome(){
     T1_HTMLBase()

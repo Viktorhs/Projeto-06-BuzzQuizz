@@ -142,7 +142,7 @@ main {
 .T1-user-quizzes ul {
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
