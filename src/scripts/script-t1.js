@@ -1,4 +1,4 @@
-const urlAPI = 'https://mock-api.driven.com.br/api/v7/buzzquizz'
+const urlAPI = 'https://mock-api.driven.com.br/api/vs/buzzquizz'
 let quizzesAllUsers;
 let idQuizzUserSerializados = localStorage
 let idQuizzUser = [];
